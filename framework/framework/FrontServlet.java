@@ -27,11 +27,13 @@ import org.apache.commons.io.FilenameUtils;
 
 public class FrontServlet extends HttpServlet{ 
     HashMap<String,Mapping> mappingUrls;
+    HashMap<String, Object> singleton;
 
     public void init() throws ServletException {
         try {
         mappingUrls = new HashMap<String, Mapping>();
         String packageName = getServletContext().getInitParameter("packageName");
+        singleton = Fonction.recuperationSingleton(singleton, packageName);
         URL root = Thread.currentThread().getContextClassLoader().getResource(packageName.replace(".", "//")); 
             for (File file : new File(root.getFile().replaceAll("%20", " ")).listFiles()) {
                 if (file.getName().contains(".class")) {
@@ -78,7 +80,7 @@ public class FrontServlet extends HttpServlet{
             }
             out.println(mappingUrls.size());
             
-            Object o=Fonction.getTheObject(mappingUrls, null, req);
+            Object o=Fonction.getTheObject(mappingUrls, singleton, req, rep);
             Object obj = Fonction.getInputData(o, req, rep);
             
             out.close();
