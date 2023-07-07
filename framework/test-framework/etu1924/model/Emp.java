@@ -1,4 +1,4 @@
-package object;
+package etu1924.model;
 
 import java.util.ArrayList;
 import java.util.Vector;
