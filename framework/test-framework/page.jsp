@@ -1,3 +1,7 @@
+<%
+    String nom = (String) request.getAttribute("nom");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +11,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="">
-        <input type="text" name="nom">
-        <input type="submit">
-    </form>
+    <h2>\Récupération des données :</h2>
+    <p>Bienvenue, <%= nom %></p>
 </body>
 </html>
