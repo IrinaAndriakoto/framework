@@ -2,6 +2,7 @@ package etu1924.framework.servlet;
 
 import etu1924.framework.Mapping;
 import etu1924.modelView.ModelView;
+import utile.Fonction;
 import etu1924.annotation.url;
 import java.io.*;
 import java.lang.reflect.Method;
@@ -76,6 +77,10 @@ public class FrontServlet extends HttpServlet{
                 getDataNameView(url, req, rep);
             }
             out.println(mappingUrls.size());
+            
+            Object o=Fonction.getTheObject(mappingUrls, null, req);
+            Object obj = Fonction.getInputData(o, req, rep);
+            
             out.close();
         }
         catch(Exception e){
@@ -166,6 +171,8 @@ public class FrontServlet extends HttpServlet{
         }
         return rar.toArray(new String[rar.size()]);
     }
+
+
 }
 
         
