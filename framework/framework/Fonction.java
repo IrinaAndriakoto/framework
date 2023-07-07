@@ -1,15 +1,22 @@
-package utile;
+package etu1924.framework.utils;
 
+import etu1924.framework.*;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import etu1924.framework.Mapping;
 
@@ -71,4 +78,56 @@ public class Fonction {
 
         return ob;
     }
+
+    public static Object recuperationFileData(Object object, HttpServletRequest request, HttpServletResponse response) 
+    throws IOException, ServletException, NoSuchMethodException, IllegalAccessException, InvocationTargetException
+    {
+        try {
+            PrintWriter out = response.getWriter();
+            String methodd = request.getMethod();
+            out.println("-----------FILE---------------");
+            Collection<Part> parts = request.getParts();
+            Field[] fields = object.getClass().getDeclaredFields();
+            int size = parts.size();
+            out.println("La taille de la collection parts est : " + size);
+            for (Part part : parts) {
+                for (int i = 0; i < fields.length; i++) {
+                    Field field = fields[i];
+                    if (field.getName().equals(part.getName())) {
+                        if (field.getType().getName().equals("etu1924.framework.FileUpload")) {
+                            String methodName = "set" + capitalizeFirstLetter(field.getName());
+                            Method method = object.getClass().getMethod(methodName, FileUpload.class);
+                            FileUpload paramValue = traitementFile(field.getName(), request);
+                            method.invoke(object, paramValue);
+                        }
+                    }
+                }
+            }   
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return object;
+    }
+
+    public static FileUpload traitementFile(String nomAttribut, HttpServletRequest request) throws IOException, ServletException{
+        FileUpload fu = new FileUpload();
+
+        Part filePart = request.getPart(nomAttribut);
+        String fileName = filePart.getSubmittedFileName();
+        InputStream fileContent = filePart.getInputStream();
+
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        int bytesRead;
+        byte[] data = new byte[4096];
+        while ((bytesRead = fileContent.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, bytesRead);
+        }
+        byte[] fileBytes = buffer.toByteArray();
+        Byte[] fileBytesWrapper = new Byte[fileBytes.length];
+        for (int i = 0; i < fileBytes.length; i++) {
+            fileBytesWrapper[i] = fileBytes[i];
+        }
+        fu = new FileUpload(fileName, fileBytesWrapper);
+        return fu;
+    }    
 }

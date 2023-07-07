@@ -2,7 +2,7 @@
  *
  * @author irina
  */
-package utile;
+package etu1924.annotation;
 
 import java.lang.annotation.*;
 
