@@ -1,4 +1,4 @@
-package object;
+package etu1924.model;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -9,8 +9,18 @@ import etu1924.modelView.ModelView;
 // import utile.ModelView;
 import utile.Annotation;
 
+
 @Annotation(isSegleton = true)
 public final class Emp {
+    String nom;
+    
+    public String getNom(){
+        return this.nom;
+    }
+    public void setNom(String n){
+        this.nom=n;
+    }
+
     @Annotation(url="/Framework/jsp/parler")
     public void parler(){
     }
@@ -44,4 +54,24 @@ public final class Emp {
         mv.AddItem("list", all);
         return mv;
     }
+
+    @Annotation(url="maka_input")
+    public ModelView getInput(){
+        ModelView md = new ModelView();
+        md.setUrl("C:\\Users\\USER\\Documents\\GitHub\\framework\\framework\\test-framework\\page.jsp");
+        return md;
+    }
+    
+    @url(value="empParam")
+    public ModelView getBoucle(int arg0){
+        ModelView modelView = new ModelView();
+        String nb = "0";
+        for(int i=1; i<arg0 ; i++){
+            nb = nb +"-"+String.valueOf(i);
+        }
+        modelView.addItem("boucle",nb);
+        modelView.setUrl("param.jsp");
+        return modelView;
+    }
+
 }
