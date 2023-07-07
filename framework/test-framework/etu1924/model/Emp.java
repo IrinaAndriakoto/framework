@@ -61,6 +61,17 @@ public final class Emp {
         md.setUrl("C:\\Users\\USER\\Documents\\GitHub\\framework\\framework\\test-framework\\page.jsp");
         return md;
     }
-
     
+    @url(value="empParam")
+    public ModelView getBoucle(int arg0){
+        ModelView modelView = new ModelView();
+        String nb = "0";
+        for(int i=1; i<arg0 ; i++){
+            nb = nb +"-"+String.valueOf(i);
+        }
+        modelView.addItem("boucle",nb);
+        modelView.setUrl("param.jsp");
+        return modelView;
+    }
+
 }

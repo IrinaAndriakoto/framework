@@ -1,5 +1,5 @@
 <%
-    String nom = (String) request.getAttribute("nom");
+    String boucle = (String) request.getAttribute("boucle");
 %>
 
 <!DOCTYPE html>
@@ -11,7 +11,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>Sprint 6: Recuperation de donnees</h2>
-    <p>Bienvenue, <%= nom %></p>
+    <h2> Parametre</h2>
+    <p><%= boucle %></p>
 </body>
 </html>
