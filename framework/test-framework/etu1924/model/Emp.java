@@ -9,8 +9,18 @@ import etu1924.modelView.ModelView;
 // import utile.ModelView;
 import utile.Annotation;
 
+
 @Annotation(isSegleton = true)
 public final class Emp {
+    String nom;
+    
+    public String getNom(){
+        return this.nom;
+    }
+    public void setNom(String n){
+        this.nom=n;
+    }
+
     @Annotation(url="/Framework/jsp/parler")
     public void parler(){
     }
@@ -44,4 +54,13 @@ public final class Emp {
         mv.AddItem("list", all);
         return mv;
     }
+
+    @Annotation(url="maka_input")
+    public ModelView getInput(){
+        ModelView md = new ModelView();
+        md.setUrl("C:\\Users\\USER\\Documents\\GitHub\\framework\\framework\\test-framework\\page.jsp");
+        return md;
+    }
+
+    
 }
