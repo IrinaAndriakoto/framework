@@ -2,7 +2,7 @@ package etu1924.framework.servlet;
 
 import etu1924.framework.Mapping;
 import etu1924.modelView.ModelView;
-import utile.Fonction;
+import etu1924.framework.utils.Fonction;
 import etu1924.annotation.url;
 import java.io.*;
 import java.lang.reflect.Method;
@@ -172,6 +172,25 @@ public class FrontServlet extends HttpServlet{
         return rar.toArray(new String[rar.size()]);
     }
 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+        try {
+            processRequest(request, response);
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace(out);
+        }
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+        try {
+            processRequest(request, response);
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace(out);
+        }
+    }
 
 }
 

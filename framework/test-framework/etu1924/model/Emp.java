@@ -5,9 +5,9 @@ import java.util.Vector;
 
 import etu1924.annotation.url;
 import etu1924.modelView.ModelView;
-// import utile.FileUpload;
-// import utile.ModelView;
-import utile.Annotation;
+
+import etu1924.annotation.Annotation;
+
 
 
 @Annotation(isSegleton = true)
@@ -69,7 +69,7 @@ public final class Emp {
         for(int i=1; i<arg0 ; i++){
             nb = nb +"-"+String.valueOf(i);
         }
-        modelView.addItem("boucle",nb);
+        modelView.AddItem("boucle",nb);
         modelView.setUrl("param.jsp");
         return modelView;
     }
